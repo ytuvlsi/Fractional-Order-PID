@@ -1,0 +1,14 @@
+** sch_path: /home/parallels/OPAMP/opamp.sch
+.subckt opamp VN VP GND VDD VOUT IBIAS
+*.PININFO VDD:B IBIAS:B VN:I VP:I GND:B VOUT:O
+XM1 IBIAS IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=3 nf=1 m=1
+XM2 net1 IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=15 nf=5 m=2
+XM3 net2 VN net1 VDD sky130_fd_pr__pfet_01v8 L=0.3 W=12 nf=4 m=4
+XM4 o1 VP net1 VDD sky130_fd_pr__pfet_01v8 L=0.3 W=12 nf=4 m=4
+XM5 net2 net2 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=6 nf=2 m=1
+XM6 o1 net2 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=6 nf=2 m=1
+XM7 VOUT IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=15 nf=5 m=3
+XM8 VOUT o1 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=9 nf=3 m=2
+XC2 o1 VOUT sky130_fd_pr__cap_mim_m3_1 W=11 L=22 m=1
+.ends
+.end

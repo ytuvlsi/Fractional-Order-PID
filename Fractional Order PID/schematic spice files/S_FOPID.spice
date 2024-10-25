@@ -1,0 +1,92 @@
+** sch_path: /home/parallels/FOPID/FOPID.sch
+.subckt FOPID VCC VDD VSS GND IOP IOTA INPUT LOAD C5D C4D C3D C2D C1D C5I C4I C3I C2I C1I I0D I1D I2D I3D I4D I5D I0I I1I I2I I3I
++ I4I I5I CV
+*.PININFO VCC:B VDD:B VSS:B GND:B IOP:B IOTA:B INPUT:I LOAD:O C5D:B C4D:B C3D:B C2D:B C1D:B C5I:B C4I:B C3I:B C2I:B C1I:B I0D:I
+*+ I1D:I I2D:I I3D:I I4D:I I5D:I I0I:I I1I:I I2I:I I3I:I I4I:I I5I:I CV:B
+X1 CV GND GND VDD net1 IOP opamp
+X2 net2 GND GND VDD net3 IOP opamp
+X3 net6 GND GND VDD net5 IOP opamp
+X4 net4 GND GND VDD LOAD IOP opamp
+X5 VCC IOTA CV GND VSS I5D I4D I3D I2D I1D I0D INPUT C5D C4D C3D C2D C1D Fractional_diff
+X6 VCC IOTA net1 GND VSS I5I I4I I3I I2I I1I I0I CV C5I C4I C3I C2I C1I Fractional_diff
+XR1 net2 net1 GND sky130_fd_pr__res_xhigh_po_0p35 L=17.5 mult=1 m=1
+XR2 net3 net2 GND sky130_fd_pr__res_xhigh_po_0p35 L=17.5 mult=1 m=1
+XRX net3 net4 GND sky130_fd_pr__res_xhigh_po_0p35 L=1.75 mult=1 m=1
+XRW LOAD net4 GND sky130_fd_pr__res_xhigh_po_0p35 L=17.5 mult=1 m=1
+XRY net4 net5 GND sky130_fd_pr__res_xhigh_po_0p35 L=6.475 mult=1 m=1
+XRF net5 net6 GND sky130_fd_pr__res_xhigh_po_0p35 L=17.5 mult=1 m=1
+XRZ net6 INPUT GND sky130_fd_pr__res_xhigh_po_0p35 L=6.475 mult=1 m=1
+.ends
+
+* expanding   symbol:  /home/parallels/OPAMP/opamp.sym # of pins=6
+** sym_path: /home/parallels/OPAMP/opamp.sym
+** sch_path: /home/parallels/OPAMP/opamp.sch
+.subckt opamp VN VP GND VDD VOUT IBIAS
+*.PININFO VDD:B IBIAS:B VN:I VP:I GND:B VOUT:O
+XM1 IBIAS IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=3 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM2 net1 IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=15 nf=5 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=2 m=2
+XM3 net2 VN net1 VDD sky130_fd_pr__pfet_01v8 L=0.3 W=12 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=4 m=4
+XM4 o1 VP net1 VDD sky130_fd_pr__pfet_01v8 L=0.3 W=12 nf=4 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=4 m=4
+XM5 net2 net2 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=6 nf=2 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM6 o1 net2 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=6 nf=2 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XM7 VOUT IBIAS VDD VDD sky130_fd_pr__pfet_01v8 L=0.3 W=15 nf=5 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=3 m=3
+XM8 VOUT o1 GND GND sky130_fd_pr__nfet_01v8 L=0.3 W=9 nf=3 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=2 m=2
+XC2 o1 VOUT sky130_fd_pr__cap_mim_m3_1 W=11 L=22 MF=1 m=1
+.ends
+
+
+* expanding   symbol:  /home/parallels/Fractional Differentiator/Fractional_diff.sym # of pins=17
+** sym_path: /home/parallels/Fractional Differentiator/Fractional_diff.sym
+** sch_path: /home/parallels/Fractional Differentiator/Fractional_diff.sch
+.subckt Fractional_diff VDD IOTA VOUT GND VSS I5 I4 I3 I2 I1 I0 VIN C5 C4 C3 C2 C1
+*.PININFO VIN:I I0:I I1:I I2:I I3:I I4:I I5:I IOTA:B VDD:B VSS:B GND:B VOUT:O C5:B C4:B C3:B C2:B C1:B
+X1 IOTA VDD C5 VSS VOUT GND ota3
+X2 IOTA VDD C4 VSS VOUT C5 ota3
+X3 IOTA VDD C3 VSS VOUT C4 ota3
+X4 IOTA VDD C2 VSS VOUT C3 ota3
+X5 IOTA VDD C1 VSS VOUT C2 ota3
+X6 IOTA VDD VOUT VSS net1 C1 ota3
+X7 IOTA VDD VOUT VSS VOUT GND ota3
+X8 I5 VDD VOUT VSS GND VIN ota3
+X9 I4 VDD C1 VSS GND VIN ota3
+X10 I3 VDD C2 VSS GND VIN ota3
+X11 I2 VDD C3 VSS GND VIN ota3
+X12 I1 VDD C4 VSS GND VIN ota3
+X13 I0 VDD C5 VSS GND VIN ota3
+.ends
+
+
+* expanding   symbol:  /home/parallels/OTA/ota3.sym # of pins=6
+** sym_path: /home/parallels/OTA/ota3.sym
+** sch_path: /home/parallels/OTA/ota3.sch
+.subckt ota3 IBIAS VDD IOUT VSS VN VP
+*.PININFO VP:B IBIAS:B IOUT:B VDD:B VSS:B VN:B
+XMp1 net1 net1 VDD VDD sky130_fd_pr__pfet_01v8 L=15 W=50 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMp2 IOUT net1 VDD VDD sky130_fd_pr__pfet_01v8 L=15 W=50 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMn1 net1 VP net2 net2 sky130_fd_pr__nfet_01v8 L=5 W=25 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMn2 IOUT VN net2 net2 sky130_fd_pr__nfet_01v8 L=5 W=5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMn3 net1 VP net3 net3 sky130_fd_pr__nfet_01v8 L=5 W=5 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMn4 IOUT VN net3 net3 sky130_fd_pr__nfet_01v8 L=5 W=25 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMb2 net2 IBIAS VSS VSS sky130_fd_pr__nfet_01v8 L=10 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMb1 IBIAS IBIAS VSS VSS sky130_fd_pr__nfet_01v8 L=10 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+XMb3 net3 IBIAS VSS VSS sky130_fd_pr__nfet_01v8 L=10 W=2 nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29' pd='2*int((nf+1)/2) * (W/nf + 0.29)'
++ ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W' sa=0 sb=0 sd=0 mult=1 m=1
+.ends
+
+.end
